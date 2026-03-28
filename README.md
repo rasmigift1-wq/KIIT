@@ -1,23 +1,20 @@
-# ClimaCare Project Workflow Guide
+# ClimaCare - Comprehensive Climate Action Platform
 
 ## 🌍 Project Overview
 
-ClimaCare is a comprehensive climate action platform that combines environmental monitoring, waste management, and AI-driven insights to promote sustainable urban living. The project consists of three main components: Frontend (React), Backend (Node.js/Express), and AI Model (Python/FastAPI).
-
-
-Al are professionally made
-
+ClimaCare is a comprehensive climate action platform that combines environmental monitoring, waste management, and AI-driven insights to promote sustainable urban living. The project consists of four main components: Frontend (React), Backend (Node.js/Express), AI Model (Python/FastAPI), and Admin Panel (React).
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ Project Architecture
 
 ```
 ClimaCare/
-├── Frontend/          # React + TypeScript + Vite
-├── Backend/           # Node.js + Express + MongoDB
-├── AIModel/           # Python + FastAPI + ML Models
-└── workflow.md        # This documentation
+├── Frontend/          # React + TypeScript + Vite (Main User Application)
+├── Backend/           # Node.js + Express + MongoDB (API Server)
+├── AIModel/           # Python + FastAPI + ML Models (AI Services)
+├── AdminPanel/        # React + TypeScript (Admin Dashboard)
+└── README.md          # This documentation
 ```
 
 ---
@@ -60,10 +57,22 @@ ClimaCare/
    ```bash
    cd ../AIModel
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   # On Windows: venv\Scripts\activate
+   # On macOS/Linux: source venv/bin/activate
    pip install -r requirements.txt
    python main.py
    ```
+**AI Model will run on:** `http://localhost:8000`
+
+5. **Admin Panel Setup**
+   ```bash
+   cd ../AdminPanel
+   npm install
+   cp .env.example .env  # If .env.example exists, otherwise create .env
+   # Configure .env with your API URL
+   npm run dev
+   ```
+**Admin Panel will run on:** `http://localhost:5174`
 
 ---
 
