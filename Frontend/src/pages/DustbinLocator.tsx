@@ -135,16 +135,19 @@ const DustbinLocator = () => {
   }, []);
 
   const handleAddDustbinClick = () => {
-    setShowCamera(true);
+    setPickingLocation(true);
     setPickedLocation(null);
     setShowAddForm(false);
+    setCapturedData(null);
   };
 
   const handleCameraCapture = (file: File, location: { lat: number; lng: number }, capturedAt: string) => {
     setCapturedData({ file, location, capturedAt });
-    setPickedLocation(location);
+    // Keep the map-picked location if it exists, otherwise use camera location
+    if (!pickedLocation) {
+       setPickedLocation(location);
+    }
     setShowCamera(false);
-    setShowAddForm(true);
   };
 
   const handleAddDustbin = async (e: React.FormEvent) => {
@@ -260,7 +263,7 @@ const DustbinLocator = () => {
                 <div className="p-2 bg-primary/10 rounded-xl border border-primary/20">
                   <MapPin className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-70">Gis Node Protocol</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-70">Gis Dustbin Protocol</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase">
                 Dustbin <span className="text-gradient-secondary">Locator</span>
@@ -315,16 +318,36 @@ const DustbinLocator = () => {
                       <MapPin className="w-6 h-6 text-warning" />
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm font-black text-warning uppercase tracking-widest">Add Dustbins</p>
-                      <p className="text-[10px] font-bold text-warning/60 uppercase tracking-tighter">Select precise coordinates of the Dustbin on map</p>
+                      <p className="text-sm font-black text-warning uppercase tracking-widest">Pin Location</p>
+                      <p className="text-[10px] font-bold text-warning/60 uppercase tracking-tighter">
+                        {pickedLocation ? "Location selected. Click 'Proceed' to continue." : "Select precise coordinates of the Dustbin on map"}
+                      </p>
                     </div>
                   </div>
-                  <button 
-                    onClick={() => setPickingLocation(false)}
-                    className="p-2 hover:bg-warning/20 rounded-full text-warning transition-colors"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
+                  <div className="flex items-center gap-3">
+                    {pickedLocation && (
+                      <motion.button
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        onClick={() => {
+                          setPickingLocation(false);
+                          setShowAddForm(true);
+                        }}
+                        className="px-6 py-2 bg-primary text-primary-foreground rounded-xl font-black text-[10px] uppercase tracking-widest glow-primary shadow-lg shadow-primary/20"
+                      >
+                        Proceed to Details
+                      </motion.button>
+                    )}
+                    <button 
+                      onClick={() => {
+                        setPickingLocation(false);
+                        setPickedLocation(null);
+                      }}
+                      className="p-2 hover:bg-warning/20 rounded-full text-warning transition-colors"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             )}
@@ -351,7 +374,7 @@ const DustbinLocator = () => {
                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                        <div className="absolute bottom-3 left-4 right-4 flex justify-between items-end">
                          <div>
-                           <div className="text-[10px] font-black text-white/50 uppercase tracking-[0.3em] mb-1">Node Identifier</div>
+                           <div className="text-[10px] font-black text-white/50 uppercase tracking-[0.3em] mb-1">Dustbin Identifier</div>
                            <div className="font-black text-xl text-white leading-none tracking-tight shadow-black drop-shadow-md">{d.name}</div>
                          </div>
                        </div>
@@ -478,20 +501,63 @@ const DustbinLocator = () => {
                           <img src={URL.createObjectURL(capturedData.file)} className="w-full h-full object-cover opacity-60" alt="Captured" />
                           <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
                             <Check className="w-8 h-8 text-primary mb-2" />
-                            <span className="text-[10px] font-black text-primary uppercase tracking-widest">Visual Evidence Locked</span>
+                            <span className="text-[10px] font-black text-primary uppercase tracking-widest">Image Ready</span>
                           </div>
-                          <button 
-                            type="button"
-                            onClick={() => setShowCamera(true)}
-                            className="absolute bottom-4 right-4 p-2 bg-black/60 rounded-xl text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <RefreshCw className="w-4 h-4" />
-                          </button>
+                          <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button 
+                              type="button"
+                              onClick={() => setShowCamera(true)}
+                              className="p-2 bg-black/60 rounded-xl text-white hover:bg-primary transition-colors"
+                              title="Retake Photo"
+                            >
+                              <Camera className="w-4 h-4" />
+                            </button>
+                            <button 
+                              type="button"
+                              onClick={() => setCapturedData(null)}
+                              className="p-2 bg-black/60 rounded-xl text-white hover:bg-destructive transition-colors"
+                              title="Remove"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </>
                       ) : (
-                        <div className="text-center p-6">
-                           <Camera className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
-                           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-relaxed">System requires real-time<br/>camera verification</p>
+                        <div className="flex flex-col items-center gap-4 p-6 w-full">
+                           <Camera className="w-10 h-10 text-muted-foreground/30 mx-auto" />
+                           <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs">
+                             <button
+                               type="button"
+                               onClick={() => setShowCamera(true)}
+                               className="flex-1 py-3 bg-primary/20 hover:bg-primary/30 border border-primary/30 text-primary rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                             >
+                               <Camera className="w-3.5 h-3.5" /> Camera
+                             </button>
+                             <div className="relative flex-1">
+                               <input
+                                 type="file"
+                                 accept="image/*"
+                                 className="absolute inset-0 opacity-0 cursor-pointer"
+                                 onChange={(e) => {
+                                   const file = e.target.files?.[0];
+                                   if (file) {
+                                     setCapturedData({
+                                       file,
+                                       location: pickedLocation || { lat: 0, lng: 0 },
+                                       capturedAt: new Date().toISOString()
+                                     });
+                                   }
+                                 }}
+                               />
+                               <button
+                                 type="button"
+                                 className="w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-foreground rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                               >
+                                 <Plus className="w-3.5 h-3.5" /> Upload
+                               </button>
+                             </div>
+                           </div>
+                           <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest text-center mt-2 opacity-50">Upload an image or take a photo</p>
                         </div>
                       )}
                     </div>
@@ -509,7 +575,7 @@ const DustbinLocator = () => {
                     className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-black text-sm uppercase shadow-xl shadow-primary/20 disabled:opacity-30 glow-primary transition-all" 
                     disabled={addLoading || !capturedData}
                   >
-                    {addLoading ? "Broadcasting to Node..." : "Initiate Verification"}
+                    {addLoading ? "Broadcasting to Dustbin..." : "Initiate Verification"}
                   </motion.button>
                 </form>
               </GlassCard>
