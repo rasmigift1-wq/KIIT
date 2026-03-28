@@ -164,9 +164,7 @@ def predict_carbon(data: CarbonInput):
         return {"error": str(e)}
 
 
-# =====================================================
-# 3️⃣ SURGE MODEL
-# =====================================================
+
 
 
 class SurgeInput(BaseModel):
