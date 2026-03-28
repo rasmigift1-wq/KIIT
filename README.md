@@ -4,7 +4,7 @@
 A full-stack platform to track, reduce, and manage your carbon footprint. Built for sustainable urban living — featuring AI-powered predictions, smart waste management, an eco marketplace, and real-time environmental insights.
 
 ---
-#Deployment link
+## Deployment link
 * **Frontend**-https://kiit-1.onrender.com/
 * **Backend**-https://kiit-sw9j.onrender.com
 * **AIModel**-https://kiit-aimodels.onrender.com/docs
