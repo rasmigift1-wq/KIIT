@@ -131,7 +131,7 @@ const DustbinLocator = () => {
   useEffect(() => {
     getCurrentPosition()
       .then(setUserLocation)
-      .catch(() => setUserLocation({ lat: 20.317, lng: 85.731 }));
+      .catch(() => setUserLocation({ lat: 20.3553193, lng: 85.8163444 }));
   }, []);
 
   const handleAddDustbinClick = () => {
@@ -332,7 +332,7 @@ const DustbinLocator = () => {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <GlassCard className={cn("lg:col-span-2 min-h-[500px] relative overflow-hidden p-0 border-0 gradient-border", pickingLocation && "ring-4 ring-warning/30 cursor-crosshair")} hover={false} glowColor={pickingLocation ? "warning" : "primary"}>
-          <MapContainer {...{ center: userLocation ? [userLocation.lat, userLocation.lng] : [20.365908, 85.7592686], zoom: 15, scrollWheelZoom: true, className: "h-[500px] w-full z-0" } as any}>
+          <MapContainer {...{ center: userLocation ? [userLocation.lat, userLocation.lng] : [20.3553193, 85.8163444], zoom: 15, scrollWheelZoom: true, className: "h-[500px] w-full z-0" } as any}>
             <TileLayer {...{ attribution: "&copy; OpenStreetMap contributors", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" } as any} />
             <MapClickHandler enabled={pickingLocation} onLocationPick={(lat, lng) => setPickedLocation({ lat, lng })} />
             {userLocation && <Marker {...{ position: [userLocation.lat, userLocation.lng], icon: userLocationIcon } as any}><Popup>Current Position</Popup></Marker>}

@@ -112,7 +112,6 @@ const navItems = [
   { title: "Marketplace", path: "/marketplace", icon: ShoppingBag },
   { title: "Carbon Impact", path: "/carbon", icon: Footprints },
   { title: "Environment", path: "/environment", icon: TreePine },
-  { title: "Hospitals", path: "/hospital", icon: Building2 },
   { title: "Profile", path: "/profile", icon: User },
 ];
 

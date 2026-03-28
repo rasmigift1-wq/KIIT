@@ -74,52 +74,7 @@ const Environment = () => {
       <div className="min-h-screen relative overflow-hidden">
         <div className="relative z-10 p-4 sm:p-8 max-w-7xl mx-auto space-y-12">
           {/* High Risk Popup */}
-          <AnimatePresence>
-            {isHighRisk && showRiskAlert && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                className="mb-8"
-              >
-                <div 
-                   onClick={() => navigate("/hospital")}
-                   className="bg-destructive/10 border border-destructive/20 rounded-3xl p-6 flex items-center gap-6 cursor-pointer hover:bg-destructive/15 transition-all shadow-xl shadow-destructive/10 group overflow-hidden relative"
-                >
-                  <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform">
-                    <AlertTriangle className="w-32 h-32 text-destructive" />
-                  </div>
-                  <div className="p-4 bg-destructive/20 rounded-2xl group-hover:scale-110 transition-transform z-10">
-                    <AlertTriangle className="w-8 h-8 text-destructive px-0.5" />
-                  </div>
-                  <div className="flex-1 z-10">
-                    <h4 className="font-black text-destructive text-lg uppercase tracking-tight">Environmental Hazard Alert</h4>
-                    <p className="text-xs font-bold text-destructive/70 max-w-2xl uppercase tracking-widest mt-1">Geospatial risk score exceeded safety threshold. Immediate surveillance recommended.</p>
-                  </div>
-                  <div className="flex flex-col items-center gap-2 z-10">
-                    <button 
-                      onClick={(e) => { e.stopPropagation(); setShowRiskAlert(false); }}
-                      className="p-2 hover:bg-destructive/20 rounded-full transition-colors"
-                    >
-                      <X className="w-5 h-5 text-destructive/60" />
-                    </button>
-                    <div className="text-[10px] font-bold text-destructive/40 uppercase tracking-tighter">Dismiss Scan</div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {error && (
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="mb-8 p-6 bg-destructive/10 border border-destructive/20 rounded-2xl text-destructive text-xs font-black uppercase tracking-widest flex items-center gap-4"
-            >
-              <AlertCircle className="w-5 h-5" />
-              <span>{error}</span>
-            </motion.div>
-          )}
+          
 
           {/* Header Section */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">

@@ -9,7 +9,7 @@ import DustbinLocator from "./pages/DustbinLocator";
 
 import CollectGarbage from "./pages/CollectGarbage";
 
-import HospitalLocator from "./pages/HospitalLocator"
+
 import Profile from "./pages/Profile";
 import Marketplace from "./pages/Marketplace";
 import NotFound from "./pages/NotFound";
@@ -30,7 +30,6 @@ const App = () => {
       <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/signin" />} />
       <Route path="/waste" element={token ? <WasteClassification /> : <Navigate to="/signin" />} />
       <Route path="/environment" element={token ? <Environment /> : <Navigate to="/signin" />} />
-      <Route path="/hospital" element={token?<HospitalLocator />:<Navigate to="/signin" />} />
       <Route path="/carbon" element={token ? <CarbonFootprint /> : <Navigate to="/signin" />} />
       <Route path="/dustbin" element={token ? <DustbinLocator /> : <Navigate to="/signin" />} />
 
