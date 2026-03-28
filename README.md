@@ -625,6 +625,24 @@ POST   /api/routes/optimize    - Get optimized collection route
 - Create new issue with detailed description
 - Tag relevant team members
 
+
+---
+
+## ⚖️ Legal Notice & Copyright
+
+> **IMPORTANT:** All rights, titles, and interests in and to this project are the sole and exclusive property of **Team Avengers**.
+
+### 🚫 Restricted Use & Intellectual Property
+Copyright © 2026 **Team Avengers**. All rights reserved. 
+
+The source code, documentation, assets, and design logic contained within this repository are proprietary. Unauthorized copying, modification, distribution, or any form of use—whether in part or in whole—is **strictly prohibited** without express written permission from the official representatives of Team Avengers.
+
+### ⚠️ Enforcement & Consequences
+Any unauthorized use of this project may lead to:
+* **Legal Action:** We reserve the right to pursue litigation to protect our intellectual property rights.
+* **DMCA Takedowns:** Immediate filing of formal notices to hosting platforms for the removal of infringing content.
+* **Legal Liabilities:** Recovery of damages, lost revenue, and all associated legal fees incurred during enforcement.
+
 ---
 
 *Last Updated: March 2026*
